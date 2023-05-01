@@ -29,11 +29,11 @@ namespace LicenseRentalAPI.Controllers
                 new Claim(ClaimTypes.Name, name)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]));
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var token = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.UtcNow.AddHours(4),
-                signingCredentials: cred
+                signingCredentials: credentials
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
